@@ -12,8 +12,15 @@ import com.example.demo.database.base.DbEntity;
 @Inheritance
 public class User extends DbEntity {
 
+    @Column(name = "id")
+    private Long id;
+
     @Column(name = "firstname")
     private String firstname;
+
+    public Long getId() {
+        return id;
+    }
 
     public String getFirstname() {
         return firstname;
