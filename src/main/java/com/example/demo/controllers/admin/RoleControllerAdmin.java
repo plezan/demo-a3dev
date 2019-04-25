@@ -11,11 +11,16 @@ import com.example.demo.entities.User;
 
 @Controller
 @RequestMapping(value = {UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME + UriUtils.URI_SLASH + RoleControllerAdmin.ROLE_CONTROLLER_ADMIN_NAME})
-public abstract class RoleControllerAdmin extends BaseAdminLinkedController<Role> {
+public class RoleControllerAdmin extends BaseAdminLinkedController<Role> {
 
     public static final String ROLE_CONTROLLER_ADMIN_NAME = "role";
     
     protected RoleControllerAdmin() {
         super(ROLE_CONTROLLER_ADMIN_NAME, Role.class);
+    }
+
+    @Override
+    public Boolean checkEquality(Role item, Long externalId, String linkedItem) {
+        return null;
     }
 }
