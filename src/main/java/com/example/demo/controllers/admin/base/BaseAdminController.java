@@ -1,103 +1,67 @@
 package com.example.demo.controllers.admin.base;
 
-import java.time.ZonedDateTime;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.demo.controllers.utils.MappedRoutes;
+import com.example.demo.controllers.utils.UriUtils;
 import com.example.demo.database.base.DbEntity;
-import com.example.demo.entities.User;
 
 public abstract class BaseAdminController<T extends DbEntity> implements CrudController<T> {
 
     public static final String BASE_ADMIN_CONTROLLER_NAME = "admin";
     
-    private final String controllerName;
+    public final String controllerName;
+    public final Class klazz;
+    private String indexPath;
+    private String detailsPath;
     
-    protected BaseAdminController(final String controllerName) {
+    @Autowired
+    protected JpaRepository<T, Long> repository;
+    
+    protected BaseAdminController(final String controllerName, Class klazz) {
         this.controllerName = controllerName;
+        this.klazz = klazz;
+        this.indexPath = UriUtils.URI_SLASH + this.controllerName + UriUtils.URI_INDEX_PATH;
+        this.detailsPath = UriUtils.URI_SLASH + this.controllerName + UriUtils.URI_DETAILS_PATH;
+        
+        String basePath = UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME +
+                UriUtils.URI_SLASH + controllerName;
+        List<String> datas = new ArrayList<String>();
+        datas.add(basePath + UriUtils.URI_SLASH);
+        datas.add(basePath + UriUtils.URI_INDEX_PATH);
+        datas.add(basePath + UriUtils.URI_DETAILS_PATH);
+        datas.add(basePath + UriUtils.URI_DETAILS_ID_PATH);
+        
+        MappedRoutes.getInstance().getRoutes().put(klazz, datas);
     }
     
     @Override
-    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
+    @RequestMapping(value = {UriUtils.URI_SLASH,UriUtils.URI_INDEX_PATH}, method = RequestMethod.GET)
     public String index(Model model) {
-        return "/" + this.controllerName + "/index";
+        model.addAttribute("items",this.repository.findAll());
+        return this.indexPath;
+    }
+    
+    @Override
+    @RequestMapping(value = {UriUtils.URI_DETAILS_PATH}, method = RequestMethod.GET)
+    public String details(Model model) {
+        return this.detailsPath;
     }
 
     @Override
-    @RequestMapping(value = {"/insert"}, method = RequestMethod.GET)
-    public String insert(@ModelAttribute T item) {
-        return "/" + this.controllerName + "/insert";
-    }
-
-    @Override
-    @RequestMapping(value = {"/update"}, method = RequestMethod.GET)
-    public String update(@ModelAttribute T item) {
-        return "/" + this.controllerName + "/update";
-    }
-
-    @Override
-    @RequestMapping(value = {"/delete"}, method = RequestMethod.GET)
-    public String delete(@ModelAttribute T item) {
-        return "/" + this.controllerName + "/delete";
-    }
-
-    @Override
-    @RequestMapping(value = {"/delete/{id}"}, method = RequestMethod.GET)
-    public String delete(@PathVariable Long id) {
-        return "/" + this.controllerName + "/delete";
-    }
-
-    @Override
-    @RequestMapping(value = {"/details"}, method = RequestMethod.GET)
-    public String details(@ModelAttribute T item) {
-        return "/" + this.controllerName + "/details";
-    }
-
-    @Override
-    @RequestMapping(value = {"/details/{id}"}, method = RequestMethod.GET)
-    public String details(@PathVariable Long id) {
-        return "/" + this.controllerName + "/details";
-    }
-
-    @Override
-    @RequestMapping(value = {"/list/insert"}, method = RequestMethod.GET)
-    public String insert(@ModelAttribute List<T> items) {
-        return "/" + this.controllerName + "/insert";
-    }
-
-    @Override
-    @RequestMapping(value = {"/list/update"}, method = RequestMethod.GET)
-    public String update(@ModelAttribute List<T> items) {
-        return "/" + this.controllerName + "/update";
-    }
-
-    @Override
-    @RequestMapping(value = {"/list/delete"}, method = RequestMethod.GET)
-    public String delete(@ModelAttribute List<T> items) {
-        return "/" + this.controllerName + "/delete";
-    }
-
-    @Override
-    @RequestMapping(value = {"/list/delete/{ids}"}, method = RequestMethod.GET)
-    public String delete(@PathVariable Long[] ids) {
-        return "/" + this.controllerName + "/delete";
-    }
-
-    @Override
-    @RequestMapping(value = {"/list/details"}, method = RequestMethod.GET)
-    public String details(@ModelAttribute List<T> item) {
-        return "/" + this.controllerName + "/details";
-    }
-
-    @Override
-    @RequestMapping(value = {"/list/details/{ids}"}, method = RequestMethod.GET)
-    public String details(@PathVariable Long[] id) {
-        return "/" + this.controllerName + "/details";
+    @RequestMapping(value = {UriUtils.URI_DETAILS_ID_PATH}, method = RequestMethod.GET)
+    public String details(Model model, @PathVariable @NotNull Long id) {
+        model.addAttribute("item",this.repository.getOne(id));
+        return this.detailsPath;
     }
 }
