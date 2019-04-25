@@ -18,4 +18,8 @@ public class UserControllerAdmin extends BaseAdminLinkedController<User> {
         super(USER_CONTROLLER_ADMIN_NAME, User.class);
     }
 
+    @Override
+    public Boolean checkEquality(User item, Long externalId, String linkedItem) {
+        return null;
+    }
 }

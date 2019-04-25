@@ -3,8 +3,10 @@ package com.example.demo.controllers.admin.base;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
@@ -64,4 +66,31 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         model.addAttribute("item",this.repository.getOne(id));
         return this.detailsPath;
     }
+
+    @RequestMapping(value = {UriUtils.URI_DELETE_ID_PATH}, method = RequestMethod.DELETE)
+    public String delete(@PathVariable @NotNull Long id){
+        this.repository.deleteById(id);
+        return this.indexPath;
+    }
+
+    @RequestMapping(value = {UriUtils.URI_PURGE_PATH}, method = RequestMethod.DELETE)
+    public String purge(){
+        this.repository.deleteAll();
+        return this.indexPath;
+    }
+
+    @RequestMapping(value = {UriUtils.URI_UPDATE_ID_PATH}, method = RequestMethod.PUT)
+    public String put(Model model, @PathVariable @NotNull Long id){
+        model.addAttribute("item",
+                this.repository.save(
+                    this.repository.getOne(id)
+                )
+        );
+        return  this.detailsPath;
+    }
+
+
+
+
+
 }

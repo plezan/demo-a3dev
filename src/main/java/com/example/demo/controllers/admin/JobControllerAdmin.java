@@ -19,4 +19,8 @@ public class JobControllerAdmin extends BaseAdminLinkedController<User> {
         super(JOB_CONTROLLER_ADMIN_NAME,Job.class);
     }
 
+    @Override
+    public Boolean checkEquality(User item, Long externalId, String linkedItem) {
+        return null;
+    }
 }
