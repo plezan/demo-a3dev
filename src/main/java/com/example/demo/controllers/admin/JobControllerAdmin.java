@@ -11,7 +11,7 @@ import com.example.demo.entities.User;
 
 @Controller
 @RequestMapping(value = {UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME + UriUtils.URI_SLASH + JobControllerAdmin.JOB_CONTROLLER_ADMIN_NAME})
-public abstract class JobControllerAdmin extends BaseAdminLinkedController<User> {
+public class JobControllerAdmin extends BaseAdminLinkedController<User> {
 
     public static final String JOB_CONTROLLER_ADMIN_NAME = "job";
     
@@ -19,4 +19,8 @@ public abstract class JobControllerAdmin extends BaseAdminLinkedController<User>
         super(JOB_CONTROLLER_ADMIN_NAME,Job.class);
     }
 
+    @Override
+    public Boolean checkEquality(User item, Long externalId, String linkedItem) {
+        return null;
+    }
 }
