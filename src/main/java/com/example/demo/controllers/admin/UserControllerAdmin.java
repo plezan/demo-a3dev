@@ -10,7 +10,7 @@ import com.example.demo.entities.User;
 
 @Controller
 @RequestMapping(value = {UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME + UriUtils.URI_SLASH + UserControllerAdmin.USER_CONTROLLER_ADMIN_NAME})
-public class UserControllerAdmin extends BaseAdminLinkedController<User> {
+public abstract class UserControllerAdmin extends BaseAdminLinkedController<User> {
 
     public static final String USER_CONTROLLER_ADMIN_NAME = "user";
     

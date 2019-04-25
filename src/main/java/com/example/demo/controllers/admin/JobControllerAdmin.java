@@ -11,7 +11,7 @@ import com.example.demo.entities.User;
 
 @Controller
 @RequestMapping(value = {UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME + UriUtils.URI_SLASH + JobControllerAdmin.JOB_CONTROLLER_ADMIN_NAME})
-public class JobControllerAdmin extends BaseAdminLinkedController<User> {
+public abstract class JobControllerAdmin extends BaseAdminLinkedController<User> {
 
     public static final String JOB_CONTROLLER_ADMIN_NAME = "job";
     
