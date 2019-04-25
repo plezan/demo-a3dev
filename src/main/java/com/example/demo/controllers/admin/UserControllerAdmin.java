@@ -19,4 +19,5 @@ public abstract class UserControllerAdmin extends BaseAdminLinkedController<User
         super(USER_CONTROLLER_ADMIN_NAME, User.class);
     }
 
+    
 }
