@@ -67,17 +67,16 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         return this.detailsPath;
     }
 
-
     @RequestMapping(value = {UriUtils.URI_DELETE_ID_PATH}, method = RequestMethod.DELETE)
     public String delete(@PathVariable @NotNull Long id){
         this.repository.deleteById(id);
-        return this.detailsPath;
+        return this.indexPath;
     }
 
     @RequestMapping(value = {UriUtils.URI_PURGE_PATH}, method = RequestMethod.DELETE)
     public String purge(){
         this.repository.deleteAll();
-        return this.detailsPath;
+        return this.indexPath;
     }
 
     @RequestMapping(value = {UriUtils.URI_UPDATE_ID_PATH}, method = RequestMethod.PUT)

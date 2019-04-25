@@ -2,14 +2,11 @@ package com.example.demo.entities;
 
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.example.demo.database.base.DbEntity;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 
 @Entity
 @Table(name = "utilisateur")
@@ -30,6 +27,9 @@ public class User extends DbEntity {
     
     @ManyToOne
     private Job job;
+
+    @OneToOne
+    private Schedule schedule;
 
     public Long getId() {
         return id;
@@ -65,5 +65,13 @@ public class User extends DbEntity {
 
     public void setJob(Job job) {
         this.job = job;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
     }
 }
