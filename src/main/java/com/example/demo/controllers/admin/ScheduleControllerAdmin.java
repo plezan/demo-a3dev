@@ -4,6 +4,7 @@ import com.example.demo.controllers.admin.base.BaseAdminController;
 import com.example.demo.controllers.admin.base.BaseAdminLinkedController;
 import com.example.demo.controllers.utils.UriUtils;
 import com.example.demo.entities.Schedule;
+import com.example.demo.entities.utils.EntitiesMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -19,6 +20,11 @@ public class ScheduleControllerAdmin extends BaseAdminLinkedController<Schedule>
 
     @Override
     public Boolean checkEquality(Schedule item, Long externalId, String linkedItem) {
-        return null;
-    }
-}
+
+        if(linkedItem == EntitiesMapping.JOB_TO_SCHEDULE){
+            if (item.getJob().equals(externalId)) {
+                return true;
+            }
+        }
+        return false;
+    }}

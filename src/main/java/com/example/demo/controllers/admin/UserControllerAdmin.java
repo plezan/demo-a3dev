@@ -1,5 +1,7 @@
 package com.example.demo.controllers.admin;
 
+import com.example.demo.entities.Role;
+import com.example.demo.entities.utils.EntitiesMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -20,6 +22,18 @@ public class UserControllerAdmin extends BaseAdminLinkedController<User> {
 
     @Override
     public Boolean checkEquality(User item, Long externalId, String linkedItem) {
-        return null;
+
+        if( linkedItem == EntitiesMapping.JOB_TO_USER){
+            if (item.getJob().getId().equals(externalId)) {
+                return true;
+            }
+        } else if( linkedItem == EntitiesMapping.ROLE_TO_USER) {
+            for (Role role : item.getRoles()) {
+                if (role.getId().equals(externalId)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

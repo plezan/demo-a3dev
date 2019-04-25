@@ -14,7 +14,7 @@ public class Schedule extends DbEntity{
     private String name;
 
     @OneToOne
-    private User user;
+    private Job job;
 
     public String getName() {
         return name;
@@ -24,11 +24,11 @@ public class Schedule extends DbEntity{
         this.name = name;
     }
 
-    public User getUser() {
-        return user;
+    public Job getJob() {
+        return job;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setJob(Job job) {
+        this.job = job;
     }
 }

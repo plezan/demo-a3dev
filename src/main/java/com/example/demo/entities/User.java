@@ -28,9 +28,6 @@ public class User extends DbEntity {
     @ManyToOne
     private Job job;
 
-    @OneToOne
-    private Schedule schedule;
-
     public Long getId() {
         return id;
     }
@@ -65,13 +62,5 @@ public class User extends DbEntity {
 
     public void setJob(Job job) {
         this.job = job;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
     }
 }
