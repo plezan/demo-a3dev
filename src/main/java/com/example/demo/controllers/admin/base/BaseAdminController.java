@@ -44,7 +44,10 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         datas.add(basePath + UriUtils.URI_INDEX_PATH);
         datas.add(basePath + UriUtils.URI_DETAILS_PATH);
         datas.add(basePath + UriUtils.URI_DETAILS_ID_PATH);
-
+        datas.add(basePath + UriUtils.URI_UPDATE_ID_PATH);
+        datas.add(basePath + UriUtils.URI_DELETE_ID_PATH);
+        datas.add(basePath + UriUtils.URI_PURGE_PATH);
+        datas.add(basePath + UriUtils.URI_CREATE_PATH);
         MappedRoutes.getInstance().getRoutes().put(klazz, datas);
     }
 
