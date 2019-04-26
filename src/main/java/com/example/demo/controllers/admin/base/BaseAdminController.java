@@ -82,4 +82,37 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         model.addAttribute("item", datas);
         return this.detailsPath;
     }
+
+    @RequestMapping(value = {UriUtils.URI_DELETE_ID_PATH}, method = RequestMethod.DELETE)
+    public String delete(@PathVariable @NotNull Long id){
+        this.repository.deleteById(id);
+        return this.indexPath;
+    }
+
+    @RequestMapping(value = {UriUtils.URI_PURGE_PATH}, method = RequestMethod.DELETE)
+    public String purge(){
+        this.repository.deleteAll();
+        return this.indexPath;
+    }
+
+    @RequestMapping(value = {UriUtils.URI_UPDATE_ID_PATH}, method = RequestMethod.PUT)
+    public String put(Model model, @PathVariable @NotNull Long id){
+        model.addAttribute("item",
+                this.repository.save(
+                    this.repository.getOne(id)
+                )
+        );
+        return  this.detailsPath;
+    }
+
+    @RequestMapping(value = {UriUtils.URI_CREATE_PATH}, method = RequestMethod.POST)
+    public String create(Model model, T t){
+        model.addAttribute("item", this.repository.save(t));
+        return this.detailsPath;
+    }
+
+
+
+
+
 }
