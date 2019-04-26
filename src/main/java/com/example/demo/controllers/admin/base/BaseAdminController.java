@@ -105,7 +105,7 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         );
         return  this.detailsPath;
     }
-    
+
     @RequestMapping(value = {UriUtils.URI_CREATE_PATH}, method = RequestMethod.POST)
     public String create(Model model, T t){
         model.addAttribute("item", this.repository.save(t));
