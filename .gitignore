@@ -33,3 +33,4 @@ application.properties
 .vscode/
 
 classes/
+.DS_Store
