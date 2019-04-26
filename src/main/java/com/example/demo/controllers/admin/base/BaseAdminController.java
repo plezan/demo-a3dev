@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.validation.constraints.NotNull;
 
+import com.sun.jndi.toolkit.url.Uri;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.ui.Model;
@@ -45,7 +46,10 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         datas.add(basePath + UriUtils.URI_INDEX_PATH);
         datas.add(basePath + UriUtils.URI_DETAILS_PATH);
         datas.add(basePath + UriUtils.URI_DETAILS_ID_PATH);
-
+        datas.add(basePath + UriUtils.URI_UPDATE_ID_PATH);
+        datas.add(basePath + UriUtils.URI_DELETE_ID_PATH);
+        datas.add(basePath + UriUtils.URI_PURGE_PATH);
+        datas.add(basePath + UriUtils.URI_CREATE_PATH);
         MappedRoutes.getInstance().getRoutes().put(klazz, datas);
     }
 
@@ -110,9 +114,5 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         model.addAttribute("item", this.repository.save(t));
         return this.detailsPath;
     }
-
-
-
-
 
 }
