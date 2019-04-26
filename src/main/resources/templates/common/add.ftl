@@ -1,4 +1,4 @@
-<form method="post" action="/admin/job/create">
+<form method="post" action="/admin/${view_name}/create">
 
     <!-- TODO : ajouter les autres nom-->
     <#list items.fields as field>
