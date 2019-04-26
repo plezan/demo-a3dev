@@ -10,6 +10,7 @@ public class UriUtils {
     public static final String URI_DELETE = "delete";
     public static final String URI_UPDATE = "update";
     public static final String PATH_VARIABLE_ID = "{id}";
+    public static final String URI_CREATE= "create";
     
     public static final String URI_INDEX_PATH = URI_SLASH + URI_INDEX;
     public static final String URI_DETAILS_PATH = URI_SLASH + URI_DETAILS;
@@ -22,4 +23,5 @@ public class UriUtils {
     
     public static final String URI_EXTERNAL_INDEX_PATH = URI_SLASH + EXTERNAL_PATH_VARIABLE_CLASS + URI_SLASH + EXTERNAL_PATH_VARIABLE_INDEX;
     public static final String URI_UPDATE_ID_PATH = URI_SLASH + URI_UPDATE + URI_SLASH + PATH_VARIABLE_ID;
+    public static final String URI_CREATE_PATH = URI_SLASH + URI_CREATE;
 }

@@ -1,10 +1,7 @@
-
-
-<#assign title = "User"/>
 <#include "/common/header.ftl"/>
 
         <#if links??>
-        <#list users as user>
+        <#list items as user>
             <div style="outline: dotted hotpink;position: relative;height: 2rem;margin: 1rem;padding: 1rem;border-radius: 20px;border: dotted hotpink;">
                 <span style="padding: 1.5rem;display: inline-block;height: 4rem;border-right: solid hotpink;box-sizing: border-box;margin-top: -1rem">
                     ${user.id}

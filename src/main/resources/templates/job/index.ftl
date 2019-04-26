@@ -1,8 +1,3 @@
-
-
-<#assign title = "Job"/>
 <#include "/common/header.ftl"/>
-
-job index
-
+${view_name} index
 <#include "/common/footer.ftl"/>

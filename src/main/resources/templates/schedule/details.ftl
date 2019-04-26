@@ -1,12 +1,3 @@
-
-
-<#assign title = "Schedule"/>
 <#include "/common/header.ftl"/>
-
-
-
-${title} details
-
-
-
+${view_name} details
 <#include "/common/footer.ftl"/>
