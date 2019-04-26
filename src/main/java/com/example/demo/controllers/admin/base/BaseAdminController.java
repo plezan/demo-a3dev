@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.validation.constraints.NotNull;
 
+import com.example.demo.controllers.admin.UserControllerAdmin;
 import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,7 +44,7 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         datas.add(basePath + UriUtils.URI_INDEX_PATH);
         datas.add(basePath + UriUtils.URI_DETAILS_PATH);
         datas.add(basePath + UriUtils.URI_DETAILS_ID_PATH);
-        
+
         MappedRoutes.getInstance().getRoutes().put(klazz, datas);
     }
     
@@ -67,19 +68,21 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         return this.detailsPath;
     }
 
-    @RequestMapping(value = {UriUtils.URI_DELETE_ID_PATH}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {UriUtils.URI_DELETE_ID_PATH}, method = RequestMethod.POST)
     public String delete(@PathVariable @NotNull Long id){
         this.repository.deleteById(id);
-        return this.indexPath;
+        String s = UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME + this.indexPath;
+        return  "redirect:" + s;
     }
 
-    @RequestMapping(value = {UriUtils.URI_PURGE_PATH}, method = RequestMethod.DELETE)
+    @RequestMapping(value = {UriUtils.URI_PURGE_PATH}, method = RequestMethod.POST)
     public String purge(){
         this.repository.deleteAll();
-        return this.indexPath;
+        String s = UriUtils.URI_SLASH + BaseAdminController.BASE_ADMIN_CONTROLLER_NAME + this.indexPath;
+        return  "redirect:" + s;
     }
 
-    @RequestMapping(value = {UriUtils.URI_UPDATE_ID_PATH}, method = RequestMethod.PUT)
+    @RequestMapping(value = {UriUtils.URI_UPDATE_ID_PATH}, method = RequestMethod.POST)
     public String put(Model model, @PathVariable @NotNull Long id){
         model.addAttribute("item",
                 this.repository.save(
@@ -88,9 +91,5 @@ public abstract class BaseAdminController<T extends DbEntity> implements CrudCon
         );
         return  this.detailsPath;
     }
-
-
-
-
 
 }
